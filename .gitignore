@@ -1,0 +1,24 @@
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Virtual environments (DO NOT UPLOAD)
+venv/
+env/
+.venv/
+
+# ML / Deep Learning model files (DO NOT UPLOAD)
+*.pth
+*.pt
+*.h5
+*.ckpt
+
+# Jupyter
+.ipynb_checkpoints/
+
+# macOS system files
+.DS_Store
+
+# Logs
+*.log

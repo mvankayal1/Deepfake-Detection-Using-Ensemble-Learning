@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Deepfake Detector</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --primary: #4f46e5;
+      --primary-dark: #4338ca;
+      --background: #f0f2f5;
+      --card-bg: #ffffff;
+      --error-bg: #fef2f2;
+      --success-bg: #ecfdf5;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      font-family: 'Outfit', sans-serif;
+      margin: 0;
+      background-color: var(--background);
+      color: #1c1c1e;
+    }
+
+    header {
+      background-color: #20232a;
+      color: white;
+      padding: 60px 20px 40px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2.8rem;
+      font-weight: 700;
+    }
+
+    header p {
+      font-size: 1.1rem;
+      margin-top: 10px;
+      color: #ccc;
+    }
+
+    .card {
+      background-color: var(--card-bg);
+      max-width: 700px;
+      margin: -40px auto 40px;
+      padding: 40px 30px;
+      border-radius: 20px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+    }
+
+    .upload-section {
+      text-align: center;
+      padding: 30px;
+      border: 2px dashed #d0d0d0;
+      border-radius: 15px;
+      background-color: #fafafa;
+      margin-bottom: 30px;
+    }
+
+    input[type="file"] {
+      display: block;
+      margin: 10px auto 0;
+      font-size: 1rem;
+    }
+
+    .upload-section p {
+      color: #666;
+      font-size: 0.95rem;
+      margin-top: 10px;
+    }
+
+    #videoPreview {
+      display: none;
+      max-width: 100%;
+      margin-top: 20px;
+      border-radius: 10px;
+    }
+
+    button {
+      background-color: var(--primary);
+      color: white;
+      padding: 14px 32px;
+      border: none;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 20px;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: var(--primary-dark);
+    }
+
+    .error {
+      color: #b91c1c;
+      background: #fee2e2;
+      padding: 10px 20px;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      margin-top: 15px;
+      text-align: center;
+    }
+
+    .result-box {
+      padding: 25px;
+      border-radius: 15px;
+      margin-top: 30px;
+      font-size: 1rem;
+    }
+
+    .real {
+      background-color: var(--success-bg);
+      border-left: 6px solid #10b981;
+      color: #065f46;
+    }
+
+    .fake {
+      background-color: var(--error-bg);
+      border-left: 6px solid #ef4444;
+      color: #7f1d1d;
+    }
+
+    .result-box h2 {
+      margin-top: 0;
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+
+    .back-btn {
+      display: inline-block;
+      margin-top: 20px;
+      background-color: #374151;
+      padding: 10px 20px;
+      border-radius: 8px;
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .back-btn:hover {
+      background-color: #1f2937;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.9rem;
+      color: #777;
+      padding: 40px 0 20px;
+    }
+
+    /* Spinner */
+    #spinner {
+      display: none;
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    .loader {
+      border: 6px solid #f3f3f3;
+      border-top: 6px solid var(--primary);
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+      margin: auto;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    @media (max-width: 600px) {
+      header h1 { font-size: 2rem; }
+      .card { padding: 25px 20px; }
+      button { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Deepfake Detector</h1>
+  <p>Upload your video to analyze authenticity</p>
+</header>
+
+<div class="card">
+  <form method="post" enctype="multipart/form-data" action="/upload" onsubmit="showLoader()">
+    <div class="upload-section">
+      <input type="file" name="file" id="fileInput" accept=".mp4,.avi,.mov" required onchange="previewVideo(event)">
+      <p>Supported formats: MP4, AVI, MOV</p>
+      <video id="videoPreview" controls></video>
+    </div>
+    <button type="submit">Analyze Video</button>
+  </form>
+
+  <div id="spinner">
+    <div class="loader"></div>
+    <p style="margin-top: 10px; color: #666;">Processing video...</p>
+  </div>
+
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      {% for message in messages %}
+        <div class="error">{{ message }}</div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+
+  {% if result %}
+  <div class="result-box {{ 'fake' if result == 'FAKE' else 'real' }}">
+    <h2>Video: {{ filename }}</h2>
+    <p>Classification Result: <strong>{{ result }}</strong></p>
+    <a href="/" class="back-btn">Analyze Another Video</a>
+  </div>
+  {% endif %}
+</div>
+
+<footer>
+  &copy; 2025 Deepfake Detection · SUNY Binghamton
+</footer>
+
+<script>
+  function previewVideo(event) {
+    const file = event.target.files[0];
+    const preview = document.getElementById('videoPreview');
+    if (file) {
+      const url = URL.createObjectURL(file);
+      preview.src = url;
+      preview.style.display = 'block';
+    } else {
+      preview.style.display = 'none';
+    }
+  }
+
+  function showLoader() {
+    document.querySelector('form').style.display = 'none';
+    document.getElementById('spinner').style.display = 'block';
+  }
+</script>
+
+</body>
+</html>
