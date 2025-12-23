@@ -97,54 +97,46 @@ The `.gitignore` explicitly excludes:
 ```bash
 python3 -m venv venv
 source venv/bin/activate
-
+```
 2. Install Dependencies
+```bash
 pip install --upgrade pip
 pip install -r requirements.txt
+```
 
-3. Run the Application
+4. Run the Application
+```bash
 python app.py
-
+```
 The Flask server will start locally. Open the displayed URL in your browser to upload
 and analyze videos.
 
-Results
+**Results**
 
-Test Accuracy: ~94%
-
-Precision (Fake): 0.96
-
-Recall (Fake): 0.91
-
-F1-score (Macro Avg): 0.94
-
-The ensemble meta-learner consistently outperforms individual classifiers by leveraging
+- Test Accuracy: ~94%
+- Precision (Fake): 0.96
+- Recall (Fake): 0.91
+- F1-score (Macro Avg): 0.94
+- The ensemble meta-learner consistently outperforms individual classifiers by leveraging
 their complementary strengths.
 
-Limitations
+**Limitations**
 
 Binary classification only (REAL vs FAKE)
-
 Performance may degrade on out-of-distribution datasets
-
 Model size and inference time are relatively high due to deep CNN backbones
 
-Future Work
+**Future Work**
 
 Multi-class classification (identify specific deepfake generation methods)
-
 Dataset expansion for better generalization
-
 Model optimization for faster inference
-
 Explainability (Grad-CAM, SHAP)
-
 Cloud or edge deployment
 
 
-Author:
+**Author:**
 
-Vankayal Megha Shree
-MS in Computer Science 
+Vankayal Megha Shree 
 State University of New York at Binghamton 
 May 2025
