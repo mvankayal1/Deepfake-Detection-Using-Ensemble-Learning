@@ -61,13 +61,13 @@ The final system achieves **~94% test accuracy** and is deployed as a local web 
 ## Repository Structure
 
 .
-├── app.py # Flask backend
-├── modelFile.ipynb # Model training & experimentation
-├── requirements.txt # Python dependencies
-├── templates/ # Frontend HTML files
-├── Termination_Report.pdf # Full academic project report
-├── README.md # Project documentation
-└── .gitignore # Excludes model files & virtual env
+├── - app.py # Flask backend
+├── - modelFile.ipynb # Model training & experimentation
+├── - requirements.txt # Python dependencies
+├── - templates/ # Frontend HTML files
+├── - Termination_Report.pdf # Full academic project report
+├── - README.md # Project documentation
+└── - .gitignore # Excludes model files & virtual env
 
 
 ---
@@ -122,21 +122,23 @@ their complementary strengths.
 
 **Limitations**
 
-Binary classification only (REAL vs FAKE)
-Performance may degrade on out-of-distribution datasets
-Model size and inference time are relatively high due to deep CNN backbones
+- Binary classification only (REAL vs FAKE)
+- Performance may degrade on out-of-distribution datasets
+- Model size and inference time are relatively high due to deep CNN backbones
 
 **Future Work**
 
-Multi-class classification (identify specific deepfake generation methods)
-Dataset expansion for better generalization
-Model optimization for faster inference
-Explainability (Grad-CAM, SHAP)
-Cloud or edge deployment
+- Multi-class classification (identify specific deepfake generation methods)
+-Dataset expansion for better generalization
+- Model optimization for faster inference
+- Explainability (Grad-CAM, SHAP)
+- Cloud or edge deployment
 
 
 **Author:**
 
 Vankayal Megha Shree 
+
 State University of New York at Binghamton 
+
 May 2025
