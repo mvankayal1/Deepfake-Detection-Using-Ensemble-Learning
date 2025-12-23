@@ -134,7 +134,7 @@ their complementary strengths.
 **Future Work**
 
 - Multi-class classification (identify specific deepfake generation methods)
--Dataset expansion for better generalization
+- Dataset expansion for better generalization
 - Model optimization for faster inference
 - Explainability (Grad-CAM, SHAP)
 - Cloud or edge deployment
@@ -143,7 +143,5 @@ their complementary strengths.
 **Author:**
 
 Vankayal Megha Shree 
-
 State University of New York at Binghamton 
-
 May 2025
