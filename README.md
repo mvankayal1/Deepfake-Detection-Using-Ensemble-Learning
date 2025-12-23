@@ -60,7 +60,6 @@ The final system achieves **~94% test accuracy** and is deployed as a local web 
 
 ## Repository Structure
 
-.
 ├── app.py # Flask backend
 
 ├── modelFile.ipynb # Model training & experimentation
