@@ -142,6 +142,8 @@ their complementary strengths.
 
 **Author:**
 
-## Vankayal Megha Shree 
-## State University of New York at Binghamton 
-## May 2025
+Vankayal Megha Shree  
+
+State University of New York at Binghamton   
+
+May 2025
