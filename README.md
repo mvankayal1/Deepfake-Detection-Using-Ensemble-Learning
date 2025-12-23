@@ -61,13 +61,19 @@ The final system achieves **~94% test accuracy** and is deployed as a local web 
 ## Repository Structure
 
 .
-├── - app.py # Flask backend
-├── - modelFile.ipynb # Model training & experimentation
-├── - requirements.txt # Python dependencies
-├── - templates/ # Frontend HTML files
-├── - Termination_Report.pdf # Full academic project report
-├── - README.md # Project documentation
-└── - .gitignore # Excludes model files & virtual env
+├── app.py # Flask backend
+
+├── modelFile.ipynb # Model training & experimentation
+
+├── requirements.txt # Python dependencies
+
+├── templates/ # Frontend HTML files
+
+├── Termination_Report.pdf # Full academic project report
+
+├── README.md # Project documentation
+
+└── .gitignore # Excludes model files & virtual env
 
 
 ---
